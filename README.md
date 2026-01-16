@@ -11,22 +11,6 @@
 
 ---
 
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Key Features](#key-features)
-- [Performance Metrics](#performance-metrics)
-- [Architecture](#architecture)
-- [Quick Start](#quick-start)
-- [Project Structure](#project-structure)
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Documentation](#api-documentation)
-- [Contributing](#contributing)
-- [License](#license)
-
----
-
 ## 🎯 Overview
 
 FactoryGuard AI is a complete MLOps pipeline for predictive maintenance in manufacturing environments. Built for a scenario with **500 robotic arms** equipped with vibration, temperature, and pressure sensors, the system predicts catastrophic failures **24 hours in advance**, enabling preemptive maintenance and preventing millions in downtime costs.
