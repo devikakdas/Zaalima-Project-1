@@ -733,23 +733,5 @@ SOFTWARE.
 
 ---
 
-## 📊 Project Stats
-
-![GitHub stars](https://img.shields.io/github/stars/yourusername/factoryguard-ai?style=social)
-![GitHub forks](https://img.shields.io/github/forks/yourusername/factoryguard-ai?style=social)
-![GitHub issues](https://img.shields.io/github/issues/yourusername/factoryguard-ai)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/yourusername/factoryguard-ai)
-
-**Last Updated**: January 8, 2026  
-**Version**: 1.0.0  
-**Status**: Production Ready ✅
-
----
 
 
-
-**Built with ❤️ for the Manufacturing AI Community**
-
-[Website](https://factoryguard-ai.com) • [Documentation](https://docs.factoryguard-ai.com) • [Blog](https://blog.factoryguard-ai.com)
-
-</div>
