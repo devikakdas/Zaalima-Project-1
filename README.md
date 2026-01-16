@@ -746,15 +746,7 @@ SOFTWARE.
 
 ---
 
-## 🌟 Star History
 
-If this project helped you, please consider giving it a ⭐!
-
-[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/factoryguard-ai&type=Date)](https://star-history.com/#yourusername/factoryguard-ai&Date)
-
----
-
-<div align="center">
 
 **Built with ❤️ for the Manufacturing AI Community**
 
