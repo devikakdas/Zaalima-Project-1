@@ -9,7 +9,6 @@
 > **Production-grade predictive maintenance system for industrial IoT**  
 > Predicts equipment failures 24 hours in advance with <50ms inference latency
 
----
 
 ## 🎯 Overview
 
@@ -44,11 +43,23 @@ FactoryGuard AI is a complete MLOps pipeline for predictive maintenance in manuf
 - Batch prediction support
 - Production WSGI server (Gunicorn) ready
 
+### 🔄 **Automated Retraining**
+- Weekly scheduled retraining (cron/scheduler)
+- Performance-based triggers (PR-AUC threshold)
+- Automatic model validation & deployment
+- Rollback capability for failed deployments
+
 ### 📊 **Monitoring & Observability**
 - Prometheus metrics collection
 - Grafana dashboards (pre-configured)
 - Alert system (PagerDuty/Slack integration)
 - Model drift detection
+
+### 🐳 **Deployment Ready**
+- Docker containerization
+- Docker Compose for full stack
+- Load tested (500 concurrent users)
+- CI/CD pipeline examples
 
 ---
 
@@ -503,10 +514,39 @@ Batch prediction for multiple robots.
 }
 ```
 
-
-
-
 ---
+
+## 🐳 Docker Deployment
+
+### Build & Run
+
+```bash
+# Build image
+docker build -t factoryguard-ai:latest .
+
+# Run container
+docker run -d \
+  -p 5000:5000 \
+  -v $(pwd)/models:/app/models \
+  --name factoryguard-api \
+  factoryguard-ai:latest
+```
+
+### Full Stack with Monitoring
+
+```bash
+# Start all services (API + Prometheus + Grafana + AlertManager)
+docker-compose up -d
+
+# Check status
+docker-compose ps
+
+# View logs
+docker-compose logs -f api
+
+# Stop all services
+docker-compose down
+```
 
 **Access Points:**
 - API: http://localhost:5000
@@ -567,12 +607,86 @@ Configured in `monitoring/alerts.yml`:
 
 ---
 
+## 🔄 Automated Retraining
 
+### Overview
 
+The retraining pipeline automatically:
+1. Fetches new production data (last 90 days)
+2. Validates data quality
+3. Trains new model
+4. Compares with current model
+5. Deploys if improvement >2% AND PR-AUC >0.75
+6. Backs up old model for rollback
 
+### Manual Trigger
 
+```bash
+python retrain_model.py
+```
 
+### Scheduled Retraining
 
+**Linux/Mac (Cron):**
+```bash
+# Edit crontab
+crontab -e
+
+# Add: Every Sunday at 2 AM
+0 2 * * 0 cd /path/to/factoryguard-ai && python retrain_model.py >> logs/retrain.log 2>&1
+```
+
+**Windows (Task Scheduler):**
+1. Open Task Scheduler
+2. Create Basic Task: "FactoryGuard Retraining"
+3. Trigger: Weekly, Sunday, 2:00 AM
+4. Action: Run `python retrain_model.py`
+
+### Retraining Output
+
+```
+============================================================
+AUTOMATED RETRAINING PIPELINE
+============================================================
+
+✓ Loaded current model (PR-AUC: 0.7823)
+
+Running data validation checks...
+✓ Sufficient data: 1,080,000 samples
+✓ Failure rate: 1.02% (within expected range)
+
+Training new model...
+✓ New model trained (3m 42s)
+
+Evaluating models...
+Current: PR-AUC 0.7823, ROC-AUC 0.8945
+New:     PR-AUC 0.8341, ROC-AUC 0.9123
+Improvement: +0.0518 (+6.6%)
+
+Deploying new model...
+✓ Backed up to: models/backups/model_20260108_020000
+✓ New model deployed
+
+✓ RETRAINING SUCCESSFUL - NEW MODEL DEPLOYED
+```
+
+### Rollback Procedure
+
+If new model fails in production:
+
+```bash
+# 1. Stop API
+docker-compose stop api
+
+# 2. Restore backup
+cp models/backups/model_YYYYMMDD_HHMMSS/lightgbm_model.joblib \
+   models/lightgbm_model.joblib
+
+# 3. Restart API
+docker-compose start api
+
+# Downtime: ~30 seconds
+```
 
 ---
 
@@ -688,23 +802,6 @@ SOFTWARE.
 - **Flask Community** - Lightweight web framework
 - **Prometheus & Grafana** - Monitoring infrastructure
 
----
-
-## 📞 Contact & Support
-
-### Project Maintainers
-
-- **Lead Developer**: Your Name ([@yourusername](https://github.com/yourusername))
-- **ML Engineer**: Contributor Name ([@contributor](https://github.com/contributor))
-
-### Getting Help
-
-- 📖 **Documentation**: [docs/](docs/)
-- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/yourusername/factoryguard-ai/issues)
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/yourusername/factoryguard-ai/discussions)
-- 📧 **Email**: support@factoryguard-ai.com
-
----
 
 ## 🗺️ Roadmap
 
@@ -712,6 +809,8 @@ SOFTWARE.
 
 - ✅ Core ML pipeline
 - ✅ REST API with SHAP explainability
+- ✅ Automated retraining
+- ✅ Docker deployment
 - ✅ Monitoring stack
 
 ### Planned Features (v1.1.0)
@@ -732,6 +831,7 @@ SOFTWARE.
 - [ ] Multi-tenancy support
 
 ---
+
 
 
 
