@@ -24,7 +24,7 @@ class IoTSensorSimulator:
         np.random.seed(seed)
         self.n_robots = n_robots
         self.days = days
-        self.failure_rate = 0.01  # 1% failure rate (class imbalance)
+        self.failure_rate = 0.02 # 1% failure rate (class imbalance)
 
     def generate_normal_operation(self, hours):
         """Generate sensor readings for normal operation"""

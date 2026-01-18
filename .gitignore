@@ -1,0 +1,4 @@
+.idea/.name
+__pycache__/
+sensor_data_features.csv
+sensor_data_raw.csv

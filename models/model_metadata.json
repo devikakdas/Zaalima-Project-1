@@ -72,22 +72,22 @@
   ],
   "optimal_threshold": 1.0,
   "metrics": {
-    "pr_auc": 0.007438222574372625,
-    "roc_auc": 0.9072675667666776,
+    "pr_auc": 0.0005035624931146176,
+    "roc_auc": 0.7642478908717112,
     "confusion_matrix": [
       [
-        210788,
-        5188
+        122792,
+        93174
       ],
       [
-        6,
-        44
+        2,
+        48
       ]
     ],
-    "total_cost": 37940000,
+    "total_cost": 469870000,
     "threshold": 1.0,
-    "timestamp": "2026-01-13T18:56:23.245074"
+    "timestamp": "2026-01-17T19:25:42.247763"
   },
-  "training_date": "2026-01-13T18:56:23.275035",
-  "class_weights": "scale_pos_weight=12341.485714285714"
+  "training_date": "2026-01-17T19:25:42.261665",
+  "class_weights": "scale_pos_weight=7320.8983050847455"
 }
